@@ -32,7 +32,7 @@ def question(request, pk):
         return render(request, 'quizapp/result.html', context)
 
     if not cache.get('questions'):
-        cache.set('questions', questions, timeout=3600)
+        cache.set('questions', questions, timeout=360)
     questions = cache.get('questions')
     context = {
         'questions': questions,

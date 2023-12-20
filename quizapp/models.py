@@ -35,10 +35,11 @@ class Result(models.Model):
     corrent_question = models.IntegerField()
     create_at = models.DateTimeField(auto_now_add=True)
     quiz = models.ForeignKey(QuizType, on_delete=models.CASCADE)
+    total = models.FloatField(default=0)
 
     def __str__(self):
         return self.user.username
 
-    @property
-    def total(self):
-        return round((100 * self.corrent_question) / self.total_question, 2)
+    def save(self, *args, **kwargs):
+        self.total = round((100 * self.corrent_question) / self.total_question, 2)
+        return super().save(*args, **kwargs)

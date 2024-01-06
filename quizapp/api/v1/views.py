@@ -3,6 +3,8 @@ from rest_framework.views import APIView
 from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
+from rest_framework.authentication import BasicAuthentication, TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
 
 from .serializers import QuizTypeSerializer, QuestionSerializer
 from ...models import QuizType, Question
@@ -61,9 +63,13 @@ def quiz_type_detail(request, pk):
 class QuestionListAPIView(generics.ListCreateAPIView):
     queryset = Question.objects.all()
     serializer_class = QuestionSerializer
+    # authentication_classes = [TokenAuthentication, BasicAuthentication]
+    # permission_classes = [IsAuthenticated]
 
 class QuestionDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Question.objects.all()
     serializer_class = QuestionSerializer
+    authentication_classes = []
+    permission_classes = []
 
 

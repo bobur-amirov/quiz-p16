@@ -6,6 +6,7 @@ User = get_user_model()
 
 class QuizType(models.Model):
     name = models.CharField(max_length=50)
+    image = models.ImageField(upload_to='quiztype/', null=True, blank=True)
 
     def __str__(self):
         return self.name

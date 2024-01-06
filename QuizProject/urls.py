@@ -25,4 +25,7 @@ urlpatterns = [
     # account
     path('login/', LoginView.as_view(), name="login"),
     path('logout/', LogoutView.as_view(), name="logout"),
+
+    #api
+    path('api/v1/', include("quizapp.api.v1.urls"))
 ]

@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django_filters',
     'rest_framework',
     'rest_framework.authtoken',
+    'drf_yasg',
 
     'quizapp.apps.QuizappConfig',
     'account.apps.AccountConfig',
@@ -132,11 +133,22 @@ LOGOUT_REDIRECT_URL = 'qiuz'
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        # 'rest_framework.authentication.BasicAuthentication',
-        # 'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ],
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAuthenticated',
-    ]
+        'rest_framework.permissions.AllowAny',
+    ],
+    'DEFAULT_THROTTLE_CLASSES': [
+        # 'rest_framework.throttling.AnonRateThrottle',
+        # 'account.api.v1.throttles.CustomUserRateThrottle'
+        # 'rest_framework.throttling.UserRateThrottle'
+        'rest_framework.throttling.ScopedRateThrottle'
+    ],
+    'DEFAULT_THROTTLE_RATES': {
+        'question': '3/day',
+        # 'user': '10/min'
+        # 'user': '10/day'
+    }
 }

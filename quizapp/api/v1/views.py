@@ -1,13 +1,18 @@
 from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework import generics
+from rest_framework import viewsets
+from rest_framework import filters
 from rest_framework.response import Response
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, action
 from rest_framework.authentication import BasicAuthentication, TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 
-from .serializers import QuizTypeSerializer, QuestionSerializer
-from ...models import QuizType, Question
+from rest_framework_simplejwt.authentication import JWTAuthentication
+
+
+from .serializers import QuizTypeSerializer, QuestionSerializer, ResultSerializer
+from ...models import QuizType, Question, Result
 
 
 @api_view(['GET'])
@@ -60,16 +65,49 @@ def quiz_type_detail(request, pk):
 #         return Response(data=serializer.data, status=status.HTTP_200_OK)
 
 
-class QuestionListAPIView(generics.ListCreateAPIView):
-    queryset = Question.objects.all()
-    serializer_class = QuestionSerializer
+# class QuestionListAPIView(generics.ListCreateAPIView):
+#     queryset = Question.objects.all()
+#     serializer_class = QuestionSerializer
     # authentication_classes = [TokenAuthentication, BasicAuthentication]
     # permission_classes = [IsAuthenticated]
 
-class QuestionDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Question.objects.all()
-    serializer_class = QuestionSerializer
+# class QuestionDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
+#     queryset = Question.objects.all()
+#     serializer_class = QuestionSerializer
+#     authentication_classes = []
+#     permission_classes = []
+#
+# from rest_framework import mixins
+# from rest_framework.viewsets import GenericViewSet
+# class CustomViewSet(mixins.CreateModelMixin,
+#                     mixins.RetrieveModelMixin,
+#                     mixins.UpdateModelMixin,
+#                     mixins.ListModelMixin,
+#                     GenericViewSet):
+#     pass
+
+
+class QuestionViewSet(viewsets.ModelViewSet):
+    # throttle_scope = 'question'
     authentication_classes = []
     permission_classes = []
+    queryset = Question.objects.all()
+    serializer_class = QuestionSerializer
+    filter_backends = [filters.SearchFilterstat]
+    search_fields = ['pk', 'name']
 
+    # def  get_queryset(self):
+    #     qs = super().get_queryset()
+    #     search = self.request.query_params.get('search')
+    #     if search:
+    #         qs = qs.filter(name=search)
+    #     return qs
+
+    @action(detail=False, url_path='result-list', authentication_classes=[TokenAuthentication])
+    def results(self, request):
+        if not request.user.is_authenticated:
+            return Response(status=status.HTTP_401_UNAUTHORIZED)
+        results = Result.objects.filter(user=request.user.id)
+        serializer = ResultSerializer(results, many=True)
+        return Response(data=serializer.data, status=status.HTTP_200_OK)
 

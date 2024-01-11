@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from quizapp.models import QuizType, Question, Answer
+from quizapp.models import QuizType, Question, Answer, Result
 
 
 class QuizTypeSerializer(serializers.ModelSerializer):
@@ -43,3 +43,9 @@ class QuestionSerializer(serializers.ModelSerializer):
         if request:
             res['username'] = request.user.username
         return res
+
+
+class ResultSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Result
+        fields = "__all__"

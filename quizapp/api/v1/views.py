@@ -93,7 +93,7 @@ class QuestionViewSet(viewsets.ModelViewSet):
     permission_classes = []
     queryset = Question.objects.all()
     serializer_class = QuestionSerializer
-    filter_backends = [filters.SearchFilterstat]
+    filter_backends = [filters.SearchFilter]
     search_fields = ['pk', 'name']
 
     # def  get_queryset(self):

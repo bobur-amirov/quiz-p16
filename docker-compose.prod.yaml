@@ -16,10 +16,8 @@ services:
     image: postgres:14
     volumes:
       - postgres_data:/var/lib/postgresql/data/
-    environment:
-      - POSTGRES_USER=quiz
-      - POSTGRES_PASSWORD=QuizProject123
-      - POSTGRES_DB=quizdb
+    env_file:
+      - ./.env.db
   nginx:
     build: ./nginx
     ports:

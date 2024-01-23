@@ -15,8 +15,8 @@ router = routers.DefaultRouter()
 router.register(r'questions', QuestionViewSet)
 
 urlpatterns = [
-    path('', hello_world),
-    path('types/', quiz_types),
+    path('', hello_world, name='hello_world'),
+    path('types/', quiz_types, name='quiz_types'),
     path('types/<int:pk>/', quiz_type_detail),
     # path('questions/', QuestionListAPIView.as_view(), name='question_list'),
     # path('questions/<int:pk>/', QuestionDetailAPIView.as_view(), name='question_deatil')

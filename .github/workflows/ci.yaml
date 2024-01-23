@@ -16,7 +16,8 @@ jobs:
         run: pip install -r requirements.txt
       - name: Run test
         env:
-          DJANGO_SETTINGS_MODULE: QuizProject.settings.local
+          DJANGO_SETTINGS_MODULE: ${{ secrets.DJANGO_SETTINGS_MODULE }}
+          SECRET_KEY: ${{ secrets.SECRET_KEY }}
         run: python manage.py test
 
 

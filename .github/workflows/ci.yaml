@@ -1,2 +1,2 @@
-name quiz project
-on push
+name: Quiz project
+on: push

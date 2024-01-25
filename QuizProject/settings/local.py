@@ -14,11 +14,11 @@ ALLOWED_HOSTS = ['*']
 
 DATABASES = {
     "default": {
-        "ENGINE": config("SQL_ENGINE"),
-        "NAME": config("SQL_DATABASE"),
-        "USER": config("SQL_USER"),
-        "PASSWORD": config("SQL_PASSWORD"),
-        "HOST": config("SQL_HOST"),
-        "PORT": config("SQL_PORT"),
+        "SQL_ENGINE": "django.db.backends.postgresql",
+        "SQL_DATABASE": "quizdb",
+        "SQL_USER": "quiz",
+        "SQL_PASSWORD": "QuizProject123",
+        "SQL_HOST": "localhost",
+        "SQL_PORT": "5432",
     }
 }

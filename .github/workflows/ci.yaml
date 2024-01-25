@@ -34,6 +34,12 @@ jobs:
         env:
           DJANGO_SETTINGS_MODULE: QuizProject.settings.local
           SECRET_KEY: django-insecure-%r7j$wr1#-hwcfk^m81es@uw5xz@wfd-_s&ee5p)s$vl7iv54=
+          SQL_ENGINE: django.db.backends.postgresql
+          SQL_DATABASE: quizdb
+          SQL_USER: quiz
+          SQL_PASSWORD: QuizProject123
+          SQL_HOST: localhost
+          SQL_PORT: 5432
         run: python manage.py test
 
 

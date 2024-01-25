@@ -37,7 +37,7 @@ jobs:
           SQL_ENGINE: django.db.backends.postgresql
           SQL_DATABASE: quizdb
           SQL_USER: quiz
-          SQL_PASSWORD: ${{ env.SQL_PASSWORD }}
+          SQL_PASSWORD: QuizProject123
           SQL_HOST: localhost
           SQL_PORT: 5432
         run: python manage.py test

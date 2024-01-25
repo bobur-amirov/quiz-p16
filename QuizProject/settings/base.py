@@ -26,6 +26,7 @@ SECRET_KEY = config('SECRET_KEY')
 # Application definition
 
 INSTALLED_APPS = [
+    'daphne',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -45,6 +46,7 @@ INSTALLED_APPS = [
 
     'quizapp.apps.QuizappConfig',
     'account.apps.AccountConfig',
+    'task.apps.TaskConfig',
     'rest_framework_simplejwt',
 ]
 
@@ -93,6 +95,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'QuizProject.wsgi.application'
+ASGI_APPLICATION = 'QuizProject.asgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
@@ -117,6 +120,15 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [('127.0.0.1', 6379)],
+        },
+    },
+}
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 

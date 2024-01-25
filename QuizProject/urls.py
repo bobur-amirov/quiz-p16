@@ -21,6 +21,7 @@ schema = get_schema_view(
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('quizapp.urls')),
+    path('task/', include('task.urls')),
     # account
     path('login/', LoginView.as_view(), name="login"),
     path('logout/', LogoutView.as_view(), name="logout"),
